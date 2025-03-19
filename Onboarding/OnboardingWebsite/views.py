@@ -15,6 +15,7 @@ def home(request):
    # AllRecords = list(BaseRecords) + list(OnboardingRecords) + list(ContractRecords)
     AllRecords =list(CreateOnboardingInfoRecord.objects.select_related('employee').all())
 
+
     if request.method == 'POST':
         username = request.POST['Username']
         password = request.POST['Password']
@@ -35,14 +36,6 @@ def logout_the_user(request):
     logout(request)
     messages.success(request, "You were logged out")
     return redirect('home')
-
-
-
-
-
-
-
-
 
 
 
@@ -116,26 +109,3 @@ def update_record(request, pk):
         return redirect('home')
 
 
-
-
-'''else:
-        # Pre-fill the form with existing data
-        form = CombinedForm(initial={
-            'first_name': basic_record.first_name,
-            'last_name': basic_record.last_name,
-            'DOB': basic_record.DOB,
-            'phone_number': basic_record.phone_number,
-            'fire_drill': onboarding_record.fire_drill,
-            'kpi_creation': onboarding_record.kpi_creation,
-            'health_and_safety': onboarding_record.health_and_safety,
-            'official_position': contract_record.official_position,
-            'annual_wages': contract_record.annual_wages,
-            'hours_per_week': contract_record.hours_per_week
-        })
-
-    return render(request, 'update_combined_record.html', {'form': form, 'pk': pk})
-except (CreateOnboardingInfoRecord.DoesNotExist, CreateContractInfoRecord.DoesNotExist):
-    messages.error(request, 'Record not found for update.')
-    return redirect('home')
-
-'''
